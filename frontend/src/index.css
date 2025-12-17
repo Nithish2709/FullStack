@@ -1,5 +1,4 @@
-@import "tailwindcss";
-
+/* Custom base styles */
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -7,12 +6,50 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #0f172a; /* Matches your gradient base */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #0f172a 0%, #020617 40%, #020617 100%);
+  color: #e5e7eb;
+}
+
+h1 {
+  font-size: 1.6rem;
+  line-height: 1.2;
+  font-weight: 600;
+  color: #f9fafb;
+}
+
+button {
+  border-radius: 999px;
+  border: 1px solid transparent;
+  padding: 0.45rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: inherit;
+  background: linear-gradient(to right, #22c55e, #0ea5e9);
+  color: #020617;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  box-shadow: 0 10px 25px rgba(34, 197, 94, 0.25);
+}
+button:hover {
+  box-shadow: 0 14px 30px rgba(14, 165, 233, 0.35);
+  transform: translateY(-1px);
+}
+button:focus,
+button:focus-visible {
+  outline: none;
 }
 
 a {
@@ -24,47 +61,26 @@ a:hover {
   color: #535bf2;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
   }
-  a:hover {
-    color: #747bff;
+  body {
+    background: #ffffff;
+    color: #213547;
   }
   button {
-    background-color: #f9f9f9;
+    background: #f9f9f9;
+    color: #213547;
+    border: 1px solid rgba(148, 163, 184, 0.7);
+  }
+  button:hover {
+    background: rgba(148, 163, 184, 0.2);
+    transform: none;
+    box-shadow: none;
+  }
+  a:hover {
+    color: #747bff;
   }
 }

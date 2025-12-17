@@ -1,72 +1,127 @@
-import React from 'react'
-import { useState } from 'react'
-import { use } from 'react'
-import {API} from "../utils/api";
+import React, { useState } from "react";
+import { API } from "../utils/api";
 
-export default function Addproducts() {
-    const [form,setform]=useState({
-        name:"",
-        price:"",
-        image:"",
-        description:""
-    });
-      const handleChange=(e)=>{
-        setform({...form,[e.target.name]:e.target.value})
+export default function AddProducts() {
+  const [form, setForm] = useState({
+    name: "",
+    price: "",
+    image: "",
+    description: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const product = {
+      name: form.name,
+      price: form.price,
+      img: form.image,
+      description: form.description,
+    };
+
+    try {
+      const res = await fetch(`${API}/api/postProduct`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(product),
+      });
+
+      if (res.ok) {
+        alert("Product added successfully");
+        setForm({
+          name: "",
+          price: "",
+          image: "",
+          description: "",
+        });
+      } else {
+        alert("Failed to add product");
       }
-     const handleSubmit=async (e)=>{
-        e.preventDefault();
-        const product={name:form.name,price:form.price,img:form.image,description:form.description};
-        try {
-            const res=await fetch(`${API}/api/postProduct`,{
-                method:"POST",
-                headers:{
-                    "Content-Type":"application/json"
-                },
-                body:JSON.stringify(product)
-            });
-            if(res.ok){
-                alert("product added successfully");
-                setform({
-                    name:"",
-                    price:"",
-                    image:"",
-                    description:""
-                });
-            }
-            else{
-                alert("failed to add product");
-            }
-        } catch (error) {
-            console.log(error);
-            alert("failed to add product");
-            
-        }
-        
-     }
-
-
-
+    } catch (error) {
+      console.log(error);
+      alert("Failed to add product");
+    }
+  };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label>NAME:&nbsp;</label> &nbsp;<input  name="name" type="text" placeholder="name" value={form.name} onChange={handleChange} />
-        <br></br><br></br>
-         <label>PRICE:&nbsp;</label>&nbsp;
-         <input name="price" type="text" placeholder="price" value={form.price}  onChange={handleChange}/>
-         <br></br><br></br>
-           <label>IMAGE:&nbsp;</label>&nbsp;
-         <input name="image" type="text" placeholder="image" value={form.image} onChange={handleChange}/>
-             <br></br><br></br>
-         <label>DESCRIPTION:&nbsp;</label>&nbsp;
-         <input name="description" type="text" placeholder="description"value={form.description} onChange={handleChange} />
-         <br></br><br></br>
-       
-     
-         <button type="submit">ADD</button>
-         
-      </form>
+    <div className="add-product-page">
+      <header className="add-product-header">
+        <h2 className="add-product-title">Add Product</h2>
+        <p className="add-product-subtitle">
+          Fill in the details below to add a new product to your store.
+        </p>
+      </header>
 
+      <form className="add-product-form" onSubmit={handleSubmit}>
+        <div className="form-field">
+          <label htmlFor="name" className="form-label">
+            Name
+          </label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            placeholder="Product name"
+            value={form.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-field">
+          <label htmlFor="price" className="form-label">
+            Price
+          </label>
+          <input
+            id="price"
+            name="price"
+            type="text"
+            placeholder="Price"
+            value={form.price}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-field">
+          <label htmlFor="image" className="form-label">
+            Image URL
+          </label>
+          <input
+            id="image"
+            name="image"
+            type="text"
+            placeholder="Image URL"
+            value={form.image}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-field">
+          <label htmlFor="description" className="form-label">
+            Description
+          </label>
+          <input
+            id="description"
+            name="description"
+            type="text"
+            placeholder="Description"
+            value={form.description}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <button type="submit" className="btn btn-primary add-product-submit">
+          Add Product
+        </button>
+      </form>
     </div>
-  )
+  );
 }

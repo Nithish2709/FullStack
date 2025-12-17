@@ -1,80 +1,123 @@
-import About from "./components/About"
-import {useState} from 'react'
-import Contact from "./components/Contact"
-import Product from "./components/product"
-import Home from "./components/Home"
-import Products from "./components/Products"
-import {BrowserRouter,Routes,Route,Link} from 'react-router-dom'
-import "./App.css"
-import { useEffect } from "react"
-import Cart from "./components/Cart"
-import BuyNow from "./components/BuyNow"
-import Login from "./components/Login"
-import ProtectedRoute from "./pages/protectedRoute"
-import AddProduct from "./components/Addproducts"
-
+import About from "./components/About";
+import { useState, useEffect } from "react";
+import Contact from "./components/Contact";
+import Product from "./components/product";
+import Home from "./components/Home";
+import Products from "./components/Products";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import "./App.css";
+import Cart from "./components/Cart";
+import BuyNow from "./components/BuyNow";
+import Login from "./components/Login";
+import ProtectedRoute from "./pages/protectedRoute";
+import AddProduct from "./components/Addproducts";
 
 function App() {
+  const [cart, setcart] = useState([]);
 
-  const [cart,setcart]=useState([]);
-  useEffect(()=>{
-    const storedCart=localStorage.setItem("cart",JSON.stringify(cart));
-   
-  },[cart])
-  const lagout=()=>{
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
+  const lagout = () => {
     localStorage.removeItem("email");
     window.location.reload();
-  
   };
-  
+
   return (
-    <>
-    <div style={{ width:"100%"}} >
-         <header style={{ width:"100%"}}>
-          <h1 className="i" >My App </h1>
-          <nav className='l' style={{ width:"100%"}}>
-              <Link to="/" className="o"> Home  |{" "} </Link>
-              <Link to="/about" className="o">About Us | {" "} </Link>
-              <Link to="/contact" className="o"> Contact us |{" "}   </Link>
-              <Link to="/products"className="o">Products | {" "}</Link>
-              <Link to="/cart"className="o" >cart{cart.length} | {" "}</Link>
-              <Link to="/addproduct" className="o">Add Product | {" "}</Link>
-              {localStorage.getItem("email") ? (
-                 <button onClick={lagout} className="o">Logout</button>
-              ) : ( 
-            <Link to="/login" className="o">Login</Link>
-              ) 
-              }
-              <hr></hr>
+   
+      <div className="app-root">
+        <header className="app-header">
+          <div className="header-inner">
+            <h1 className="app-logo">My App</h1>
 
-          </nav>
+            <nav className="main-nav">
+              <div className="nav-links">
+                <Link to="/" className="nav-link">
+                  Home
+                </Link>
+                <Link to="/about" className="nav-link">
+                  About Us
+                </Link>
+                <Link to="/contact" className="nav-link">
+                  Contact Us
+                </Link>
+                <Link to="/products" className="nav-link">
+                  Products
+                </Link>
+                <Link to="/cart" className="nav-link nav-cart">
+                  <span>Cart</span>
+                  <span className="cart-badge">{cart.length}</span>
+                </Link>
+                <Link to="/addproduct" className="nav-link">
+                  Add Product
+                </Link>
+              </div>
 
-         </header>
-         
-         <main >
-         <Routes>
-          <Route path="/" element={<Home/>}>Home</Route>
-          <Route path="/About" element={<About/>}>About</Route>
-          <Route path="/Contact" element={<Contact/>}>Contact</Route>
-          <Route path="/Products" element={<Products cart={cart}setcart={setcart}/>}>Products</Route>
-          <Route path="/product/:id" element={<Product/>}></Route>
-          <Route path="/cart" element={
-          <ProtectedRoute>
-            <Cart cart={cart} setcart={setcart}/>
-           </ProtectedRoute>
-          }>
+              <div className="nav-auth">
+                {localStorage.getItem("email") ? (
+                  <button onClick={lagout} className="btn btn-outline">
+                    Logout
+                  </button>
+                ) : (
+                  <Link to="/login" className="btn btn-primary">
+                    Login
+                  </Link>
+                )}
+              </div>
+            </nav>
+          </div>
+        </header>
 
-          </Route>
-         <Route path="/buynow/:id" element={<BuyNow/>}></Route>
-         <Route path="/login" element={<Login/>}></Route>
-          <Route path="/addproduct" element={<AddProduct/>}></Route>
-         </Routes>
-        
-         </main>
-         
-         </div>
-      </>
-  )
+        <main className="app-main">
+          <div className="app-main-inner">
+            <Routes>
+              <Route path="/" element={<Home />}>
+                Home
+              </Route>
+              <Route path="/About" element={<About />}>
+                About
+              </Route>
+              <Route path="/Contact" element={<Contact />}>
+                Contact
+              </Route>
+              <Route
+                path="/Products"
+                element={<Products cart={cart} setcart={setcart} />}
+              >
+                Products
+              </Route>
+              <Route path="/product/:id" element={<Product />}></Route>
+              <Route
+                path="/cart"
+                element={
+                  <ProtectedRoute>
+                    <Cart cart={cart} setcart={setcart} />
+                  </ProtectedRoute>
+                }
+              ></Route>
+              <Route path="/buynow/:id" element={<BuyNow />}></Route>
+              <Route path="/login" element={<Login />}></Route>
+              <Route path="/addproduct" element={<AddProduct />}></Route>
+            </Routes>
+          </div>
+        </main>
+
+        <footer className="app-footer">
+          <div className="footer-inner">
+            <p className="footer-title">My App Storefront</p>
+            <p className="footer-text">
+              Modern demo e‑commerce React application with protected cart,
+              product management, and clean navigation.
+            </p>
+            <p className="footer-copy">
+              © {new Date().getFullYear()} My App. All rights reserved.
+            </p>
+          </div>
+        </footer>
+      </div>
+  
+  );
 }
 
-export default App
+export default App;
