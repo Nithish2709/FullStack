@@ -14,6 +14,9 @@ import AddProduct from "./components/Addproducts";
 
 function App() {
   const [cart, setcart] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    Boolean(localStorage.getItem("email"))
+  );
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -21,11 +24,11 @@ function App() {
 
   const lagout = () => {
     localStorage.removeItem("email");
-    window.location.reload();
+    setIsLoggedIn(false);
   };
 
   return (
-   
+    
       <div className="app-root">
         <header className="app-header">
           <div className="header-inner">
@@ -55,7 +58,7 @@ function App() {
               </div>
 
               <div className="nav-auth">
-                {localStorage.getItem("email") ? (
+                {isLoggedIn ? (
                   <button onClick={lagout} className="btn btn-outline">
                     Logout
                   </button>
@@ -75,19 +78,19 @@ function App() {
               <Route path="/" element={<Home />}>
                 Home
               </Route>
-              <Route path="/About" element={<About />}>
+              <Route path="/about" element={<About />}>
                 About
               </Route>
-              <Route path="/Contact" element={<Contact />}>
+              <Route path="/contact" element={<Contact />}>
                 Contact
               </Route>
               <Route
-                path="/Products"
+                path="/products"
                 element={<Products cart={cart} setcart={setcart} />}
               >
                 Products
               </Route>
-              <Route path="/product/:id" element={<Product />}></Route>
+              <Route path="/product/:id" element={<Product />} />
               <Route
                 path="/cart"
                 element={
@@ -95,10 +98,13 @@ function App() {
                     <Cart cart={cart} setcart={setcart} />
                   </ProtectedRoute>
                 }
-              ></Route>
-              <Route path="/buynow/:id" element={<BuyNow />}></Route>
-              <Route path="/login" element={<Login />}></Route>
-              <Route path="/addproduct" element={<AddProduct />}></Route>
+              />
+              <Route path="/buynow/:id" element={<BuyNow />} />
+              <Route
+                path="/login"
+                element={<Login onLogin={() => setIsLoggedIn(true)} />}
+              />
+              <Route path="/addproduct" element={<AddProduct />} />
             </Routes>
           </div>
         </main>
@@ -116,7 +122,7 @@ function App() {
           </div>
         </footer>
       </div>
-  
+
   );
 }
 

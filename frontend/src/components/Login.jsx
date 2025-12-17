@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
@@ -9,6 +9,9 @@ export default function Login() {
     e.preventDefault();
     if (!email.trim()) return;
     localStorage.setItem("email", email.trim());
+    
+    if (onLogin) onLogin();   
+    
     navigate("/");
   };
 

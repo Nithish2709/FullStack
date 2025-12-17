@@ -29,7 +29,7 @@ export default function Products({ setcart, cart }) {
     if (!confirmDelete) return;
 
     const res = await fetch(
-      `http://localhost:2796/api/deleteProduct/${id}`,
+      `${API}/api/deleteProduct/${id}`,
       {
         method: "DELETE",
       }
