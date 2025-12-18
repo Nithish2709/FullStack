@@ -6,7 +6,7 @@ export default function Home() {
     <div className="home-page">
       <section className="home-hero">
         <div className="home-hero-content">
-          <p className="home-kicker">Modern React Storefront</p>
+          <p className="home-kicker">Modern React Storefront by Nithish</p>
           <h1 className="home-title">
             Manage products, protect your cart, and shop with a clean interface.
           </h1>
