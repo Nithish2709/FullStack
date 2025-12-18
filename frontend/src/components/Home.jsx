@@ -8,7 +8,7 @@ export default function Home() {
         <div className="home-hero-content">
           <p className="home-kicker">Modern React Storefront by Nithish</p>
           <h1 className="home-title">
-            Manage products, protect your cart, and shop with a clean interface.
+            Manage products, protect your cart, and shop with a clean interface. by Nithish
           </h1>
           <p className="home-subtitle">
             Add items, review details, and complete purchases with a minimal,
